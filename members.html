@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The People Behind Clover</title>
+
+    <link rel="icon" href="assets/logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="members.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="particles"></div>
+
+    <header class="hero">
+
+        <img src="assets/logo.png" class="page-logo" alt="Clover logo">
+
+        <p class="small-title">Executive Board 2025–2026</p>
+
+        <h1>The People Behind Clover</h1>
+
+        <p>
+            Every achievement had people behind it.<br>
+            Every chapter gave us something to remember.
+        </p>
+
+    </header>
+
+    <section class="members-grid">
+
+        <div class="member-card" data-member="lcp">
+
+            <img src="assets/members/lcp.jpg" alt="Tulip">
+
+            <h2>Tulip</h2>
+
+            <span>LCP</span>
+
+            <p>Our guiding heart</p>
+
+        </div>
+
+        <div class="member-card" data-member="ogv">
+
+            <img src="assets/members/ogv.jpg" alt="Aitch">
+
+            <h2>Aitch</h2>
+
+            <span>LCVP oGV</span>
+
+            <p>Our courageous energy</p>
+
+        </div>
+
+        <div class="member-card" data-member="igv">
+
+            <img src="assets/members/igv.jpg" alt="Yupa">
+
+            <h2>Yupa</h2>
+
+            <span>LCVP iGV</span>
+
+            <p>Our caring strength</p>
+
+        </div>
+
+        <div class="member-card" data-member="ewa">
+
+            <img src="assets/members/ewa.jpg" alt="Thiha">
+
+            <h2>Thiha</h2>
+
+            <span>LCVP EwA</span>
+
+            <p>Our joyful spirit</p>
+
+        </div>
+
+        <div class="member-card" data-member="mx">
+
+            <img src="assets/members/mx.jpg" alt="Erik">
+
+            <h2>Erik</h2>
+
+            <span>LCVP MX</span>
+
+            <p>Our people builder</p>
+
+        </div>
+
+        <div class="member-card" data-member="fnl">
+
+            <img src="assets/members/fnl.jpg" alt="Katie">
+
+            <h2>Katie</h2>
+
+            <span>LCVP FnL</span>
+
+            <p>Our steady support</p>
+
+        </div>
+
+    </section>
+
+    <section id="member-detail">
+
+        <button id="back-btn" type="button">
+            ← Back
+        </button>
+
+        <div class="detail-wrapper">
+
+            <img id="detail-photo" alt="Executive Board member">
+
+            <p class="detail-label">
+                Clover Executive Board 2025–2026
+            </p>
+
+            <h1 id="detail-name"></h1>
+
+            <h2 id="detail-role"></h2>
+
+            <h3 id="detail-personality"></h3>
+
+            <div class="section">
+
+                <h4>🍀 What You Brought to Clover</h4>
+
+                <p id="detail-description"></p>
+
+            </div>
+
+            <div class="section appreciation-section">
+
+                <h4>💌 My Message to You</h4>
+
+                <p id="detail-appreciation"></p>
+
+            </div>
+
+            <div class="section reflection-section">
+
+                <h4>✨ What I Will Remember</h4>
+
+                <p id="detail-reflection"></p>
+
+            </div>
+
+            <div class="detail-buttons">
+
+                <button id="prev-member" type="button">
+                    ← Previous
+                </button>
+
+                <button id="next-member" type="button">
+                    Next →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+        <!-- Background music -->
+    <audio id="members-bg-music" autoplay loop preload="auto">
+        <source src="assets/bg_song.mp3" type="audio/mpeg">
+            Your browser does not support audio playback.
+    </audio>
+
+    <button
+        id="music-toggle"
+        class="music-toggle"
+        type="button"
+        aria-label="Play background music"
+    >
+        ♫ Play Music
+    </button>
+
+    <script src="members.js"></script>
+
+</body>
+
+</html>
