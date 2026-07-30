@@ -1,5 +1,70 @@
 // ======================================================
-// Countdown to video transition
+// YouTube player setup
+// ======================================================
+
+// Replace this with your own unlisted YouTube video ID.
+const YOUTUBE_VIDEO_ID = "FxWC_QXhrhQ";
+
+let youtubePlayer = null;
+let youtubePlayerReady = false;
+let transitionRequested = false;
+
+// Called automatically by the YouTube IFrame API.
+function onYouTubeIframeAPIReady() {
+
+    youtubePlayer = new YT.Player("youtube-player", {
+
+        videoId: YOUTUBE_VIDEO_ID,
+
+        playerVars: {
+            autoplay: 0,
+            controls: 1,
+            playsinline: 1,
+            rel: 0,
+            modestbranding: 1
+        },
+
+        events: {
+
+            onReady: function () {
+
+                youtubePlayerReady = true;
+
+                console.log("YouTube player is ready");
+
+                if (transitionRequested) {
+                    playYouTubeVideo();
+                }
+
+            },
+
+            onStateChange: function (event) {
+
+                if (event.data === YT.PlayerState.ENDED) {
+                    showVideoEnding();
+                }
+
+            },
+
+            onError: function (event) {
+
+                console.error(
+                    "YouTube player error:",
+                    event.data
+                );
+
+                showVideoFallback();
+
+            }
+
+        }
+
+    });
+
+}
+
+// ======================================================
+// Countdown-to-video transition
 // ======================================================
 
 function startTransition() {
@@ -12,33 +77,25 @@ function startTransition() {
     const videoScene =
         document.getElementById("video-scene");
 
-    const video =
-        document.getElementById("intro-video");
-
     const flash =
         document.getElementById("flash");
 
-    if (!countdownScene || !videoScene || !video) {
+    if (!countdownScene || !videoScene) {
 
         console.error(
-            "Countdown scene, video scene, or intro video is missing."
+            "Countdown scene or video scene is missing."
         );
 
         return;
+
     }
 
-    // Prepare the video ending sequence before playback.
-    video.onended = showVideoEnding;
-
-    // Make sure the video is ready from the beginning.
-    video.currentTime = 0;
-    video.style.opacity = "1";
+    transitionRequested = true;
 
     const timeline = gsap.timeline();
 
     timeline
 
-        // Fade the countdown scene slightly.
         .to(countdownScene, {
             opacity: 0,
             scale: 1.04,
@@ -46,7 +103,6 @@ function startTransition() {
             ease: "power2.inOut"
         })
 
-        // White flash.
         .to(flash, {
             opacity: 1,
             duration: 0.25,
@@ -62,7 +118,6 @@ function startTransition() {
 
         })
 
-        // Remove the flash and reveal the video.
         .to(flash, {
             opacity: 0,
             duration: 0.7,
@@ -71,50 +126,46 @@ function startTransition() {
 
         .add(() => {
 
-            playIntroVideo(video);
+            if (youtubePlayerReady) {
+
+                playYouTubeVideo();
+
+            } else {
+
+                console.log(
+                    "Waiting for YouTube player..."
+                );
+
+            }
 
         });
 
 }
 
 // ======================================================
-// Play video
+// Play YouTube video
 // ======================================================
 
-async function playIntroVideo(video) {
+function playYouTubeVideo() {
+
+    if (!youtubePlayer || !youtubePlayerReady) {
+        return;
+    }
 
     try {
 
-        video.muted = false;
-        video.volume = 1;
+        youtubePlayer.unMute();
+        youtubePlayer.setVolume(100);
+        youtubePlayer.playVideo();
 
-        await video.play();
+    } catch (error) {
 
-    } catch (soundError) {
-
-        console.warn(
-            "Playback with sound was blocked. Trying muted playback.",
-            soundError
+        console.error(
+            "Unable to begin YouTube playback:",
+            error
         );
 
-        try {
-
-            video.muted = true;
-
-            await video.play();
-
-            showUnmuteNotice(video);
-
-        } catch (playbackError) {
-
-            console.error(
-                "The intro video could not start.",
-                playbackError
-            );
-
-            showVideoPlayButton(video);
-
-        }
+        showVideoFallback();
 
     }
 
@@ -124,21 +175,25 @@ async function playIntroVideo(video) {
 // Fallback play button
 // ======================================================
 
-function showVideoPlayButton(video) {
+function showVideoFallback() {
 
     const videoScene =
         document.getElementById("video-scene");
 
+    if (!videoScene) {
+        return;
+    }
+
     let button =
-        document.getElementById("video-play-button");
+        document.getElementById("youtube-play-button");
 
     if (!button) {
 
         button = document.createElement("button");
 
-        button.id = "video-play-button";
+        button.id = "youtube-play-button";
         button.type = "button";
-        button.textContent = "▶ Play Our Memory";
+        button.textContent = "▶ Play Our Clover Memory";
 
         videoScene.appendChild(button);
 
@@ -148,51 +203,15 @@ function showVideoPlayButton(video) {
 
     button.addEventListener(
         "click",
-        async () => {
-
-            video.muted = false;
-            video.volume = 1;
-
-            await video.play();
-
-            button.remove();
-
-        },
-        { once: true }
-    );
-
-}
-
-// ======================================================
-// Muted playback notice for mobile
-// ======================================================
-
-function showUnmuteNotice(video) {
-
-    const videoScene =
-        document.getElementById("video-scene");
-
-    let button =
-        document.getElementById("video-unmute-button");
-
-    if (!button) {
-
-        button = document.createElement("button");
-
-        button.id = "video-unmute-button";
-        button.type = "button";
-        button.textContent = "🔊 Tap for Sound";
-
-        videoScene.appendChild(button);
-
-    }
-
-    button.addEventListener(
-        "click",
         () => {
 
-            video.muted = false;
-            video.volume = 1;
+            if (!youtubePlayerReady) {
+                return;
+            }
+
+            youtubePlayer.unMute();
+            youtubePlayer.setVolume(100);
+            youtubePlayer.playVideo();
 
             button.remove();
 
@@ -203,22 +222,36 @@ function showUnmuteNotice(video) {
 }
 
 // ======================================================
-// Ending shown after video
+// Ending shown after YouTube video finishes
 // ======================================================
 
 function showVideoEnding() {
+
+    const playerElement =
+        document.getElementById("youtube-player");
+
+    const videoEnding =
+        document.getElementById("video-ending");
+
+    if (!playerElement || !videoEnding) {
+        return;
+    }
 
     const timeline = gsap.timeline();
 
     timeline
 
-        .to("#intro-video", {
+        .to(playerElement, {
             opacity: 0,
-            duration: 1.5,
+            duration: 1.3,
             ease: "power2.out"
         })
 
-        .to("#video-ending", {
+        .set(playerElement, {
+            display: "none"
+        })
+
+        .to(videoEnding, {
             opacity: 1,
             duration: 1
         })
@@ -246,7 +279,7 @@ function showVideoEnding() {
             duration: 2
         })
 
-        .to("#video-ending", {
+        .to(videoEnding, {
             opacity: 0,
             duration: 1
         })
@@ -254,11 +287,13 @@ function showVideoEnding() {
         .to("body", {
             opacity: 0,
             duration: 0.8,
+
             onComplete() {
 
                 window.location.href = "members.html";
 
             }
+
         });
 
 }
