@@ -553,3 +553,35 @@ button:disabled {
     }
 
 }
+
+/* ==========================================
+   Website Creator / MKT Card
+========================================== */
+
+.creator-card {
+    border-color: rgba(167, 139, 250, 0.28);
+}
+
+
+/* Small website creator badge */
+
+.creator-note {
+    position: relative;
+
+    display: inline-block;
+
+    margin-top: 16px;
+
+    padding: 7px 11px;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.25px;
+
+    background: rgba(167, 139, 250, 0.12);
+
+    border: 1px solid rgba(167, 139, 250, 0.24);
+    border-radius: 999px;
+}

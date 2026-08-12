@@ -5,6 +5,10 @@
 
 const members = {
 
+    // ==================================================
+    // LCP
+    // ==================================================
+
     lcp: {
 
         name: "Naw Tulip",
@@ -27,6 +31,11 @@ const members = {
             "I will remember your determination, the way you continued to believe in Clover and all the moments when you reminded us that we were capable of more than we thought. Clover will always carry a part of your dedication."
 
     },
+
+
+    // ==================================================
+    // oGV
+    // ==================================================
 
     ogv: {
 
@@ -51,6 +60,11 @@ const members = {
 
     },
 
+
+    // ==================================================
+    // iGV
+    // ==================================================
+
     igv: {
 
         name: "Wint Yupa Tun",
@@ -74,28 +88,38 @@ const members = {
 
     },
 
+
+    // ==================================================
+    // EwA
+    // ==================================================
+
     ewa: {
 
         name: "Min Thiha Zaw",
-    
+
         role: "Local Committee Vice President of Engage with AIESEC",
-    
+
         personality: "The Decisive Voice of Clover",
-    
+
         color: "#CFCFCF",
-    
+
         image: "assets/members/ewa.jpg",
-    
+
         description:
             "You brought honesty, confidence and strong decision-making to Clover. You were one of the most direct people in our Executive Board, and you were never afraid to clearly express what you believed was right.",
-    
+
         appreciation:
             "Thiha, thank you for always being honest and direct with us throughout the term. You were never afraid to say what needed to be said, even when the conversation was difficult. I truly appreciate your strong decision-making and the confidence you brought into our Executive Board. When situations became unclear, you often helped the team look at the reality of the situation and move toward a decision. Your direct personality sometimes challenged us, but it also helped us communicate more openly and become stronger as a team. Thank you for standing firmly behind your ideas, taking responsibility for your choices and giving your own unique strength to Clover. Working with you taught me that leadership sometimes requires courage, honesty and the ability to make difficult decisions without avoiding them.",
-    
+
         reflection:
             "I will remember your honesty, your confidence and the direct way you communicated your thoughts. You were someone who could make a clear decision and stand firmly behind it. Your strong presence became an important part of Clover and helped push our team forward when we needed direction."
-    
+
     },
+
+
+    // ==================================================
+    // MX
+    // ==================================================
 
     mx: {
 
@@ -120,6 +144,11 @@ const members = {
 
     },
 
+
+    // ==================================================
+    // FnL
+    // ==================================================
+
     fnl: {
 
         name: "Kyi Lae Kyaw Tun",
@@ -141,9 +170,38 @@ const members = {
         reflection:
             "I will remember your calmness, your careful way of working and the support you gave quietly behind the scenes. You showed me that some of the strongest contributions are not always the loudest ones."
 
+    },
+
+
+    // ==================================================
+    // MKT - Wai Yan Mya Thaung
+    // ==================================================
+
+    mkt: {
+
+        name: "Wai Yan Mya Thaung",
+
+        role: "Local Committee Vice President of Marketing",
+
+        personality: "The Storyteller Behind Clover",
+
+        color: "#A78BFA",
+
+        image: "assets/members/mkt.jpg",
+
+        description:
+            "I brought creativity, communication and storytelling to Clover — turning our projects, people and moments into stories that could be seen, shared and remembered. This website is one last piece of that journey, designed and developed by me for our Executive Board.",
+
+        appreciation:
+            "And a small message to myself: thank you for staying committed through every deadline, campaign, meeting, design and unexpected challenge. Marketing was more than creating content; it was about giving Clover a voice and preserving the moments that made our term meaningful. Building this website became my final way of putting those memories together and creating something our team can return to even after the term ends.",
+
+        reflection:
+            "I will remember the ideas that became campaigns, the late-night edits, the teamwork behind every post and all the moments we captured along the way. More than anything, I will remember that Clover was a story we created together — and I am grateful I had the chance to help tell it."
+
     }
 
 };
+
 
 // ======================================================
 // Variables
@@ -153,104 +211,188 @@ const memberKeys = Object.keys(members);
 
 let currentIndex = 0;
 
-const detailPanel = document.getElementById("member-detail");
+const detailPanel =
+    document.getElementById("member-detail");
 
-const detailPhoto = document.getElementById("detail-photo");
-const detailName = document.getElementById("detail-name");
-const detailRole = document.getElementById("detail-role");
-const detailPersonality = document.getElementById("detail-personality");
-const detailDescription = document.getElementById("detail-description");
-const detailAppreciation = document.getElementById("detail-appreciation");
-const detailReflection = document.getElementById("detail-reflection");
+const detailPhoto =
+    document.getElementById("detail-photo");
 
-const previousButton = document.getElementById("prev-member");
-const nextButton = document.getElementById("next-member");
-const backButton = document.getElementById("back-btn");
+const detailName =
+    document.getElementById("detail-name");
 
-const hero = document.querySelector(".hero");
-const membersGrid = document.querySelector(".members-grid");
+const detailRole =
+    document.getElementById("detail-role");
+
+const detailPersonality =
+    document.getElementById("detail-personality");
+
+const detailDescription =
+    document.getElementById("detail-description");
+
+const detailAppreciation =
+    document.getElementById("detail-appreciation");
+
+const detailReflection =
+    document.getElementById("detail-reflection");
+
+const previousButton =
+    document.getElementById("prev-member");
+
+const nextButton =
+    document.getElementById("next-member");
+
+const backButton =
+    document.getElementById("back-btn");
+
+const hero =
+    document.querySelector(".hero");
+
+const membersGrid =
+    document.querySelector(".members-grid");
+
 
 // ======================================================
-// Initial animation
+// Initial Animation
 // ======================================================
 
 window.addEventListener("load", () => {
 
     gsap.from("body", {
+
         opacity: 0,
+
         duration: 1
+
     });
 
+
     gsap.from(".member-card", {
+
         opacity: 0,
+
         y: 50,
+
         stagger: 0.15,
+
         duration: 0.8,
+
         ease: "power3.out",
+
         clearProps: "all"
+
     });
 
 });
 
+
 // ======================================================
-// Open member detail
+// Open Member Detail
 // ======================================================
 
 function openMember(index) {
 
     currentIndex = index;
 
-    const member = members[memberKeys[currentIndex]];
+    const member =
+        members[memberKeys[currentIndex]];
 
+
+    // Change accent color depending on member
     document.documentElement.style.setProperty(
         "--accent",
         member.color
     );
 
-    previousButton.disabled = currentIndex === 0;
 
-    if (currentIndex === memberKeys.length - 1) {
+    // Disable previous button for first member
+    previousButton.disabled =
+        currentIndex === 0;
 
-        nextButton.textContent = "Final Goodbye →";
+
+    // If last member, show Final Goodbye
+    if (
+        currentIndex ===
+        memberKeys.length - 1
+    ) {
+
+        nextButton.textContent =
+            "Final Goodbye →";
 
     } else {
 
-        nextButton.textContent = "Next →";
+        nextButton.textContent =
+            "Next →";
 
     }
 
-    detailPhoto.src = member.image;
-    detailPhoto.alt = member.name;
 
-    detailName.textContent = member.name;
-    detailRole.textContent = member.role;
-    detailPersonality.textContent = member.personality;
-    detailDescription.textContent = member.description;
-    detailAppreciation.textContent = member.appreciation;
-    detailReflection.textContent = member.reflection;
+    // Member information
+    detailPhoto.src =
+        member.image;
 
-    hero.style.display = "none";
-    membersGrid.style.display = "none";
+    detailPhoto.alt =
+        member.name;
 
-    detailPanel.classList.add("active");
+    detailName.textContent =
+        member.name;
 
+    detailRole.textContent =
+        member.role;
+
+    detailPersonality.textContent =
+        member.personality;
+
+    detailDescription.textContent =
+        member.description;
+
+    detailAppreciation.textContent =
+        member.appreciation;
+
+    detailReflection.textContent =
+        member.reflection;
+
+
+    // Hide main member page
+    hero.style.display =
+        "none";
+
+    membersGrid.style.display =
+        "none";
+
+
+    // Show detail page
+    detailPanel.classList.add(
+        "active"
+    );
+
+
+    // Return detail page to top
     detailPanel.scrollTop = 0;
 
+
+    // Animate photo
     gsap.fromTo(
+
         "#detail-photo",
+
         {
             scale: 0.7,
             opacity: 0
         },
+
         {
             scale: 1,
             opacity: 1,
             duration: 0.8,
             ease: "back.out(1.7)"
         }
+
     );
 
+
+    // Animate text sections
     gsap.fromTo(
+
         [
             "#detail-name",
             "#detail-role",
@@ -258,10 +400,12 @@ function openMember(index) {
             ".section",
             ".detail-buttons"
         ],
+
         {
             opacity: 0,
             y: 30
         },
+
         {
             opacity: 1,
             y: 0,
@@ -269,132 +413,271 @@ function openMember(index) {
             duration: 0.65,
             ease: "power3.out"
         }
+
     );
 
 }
 
+
 // ======================================================
-// Member card clicks
+// Member Card Clicks
 // ======================================================
 
-document.querySelectorAll(".member-card").forEach((card, index) => {
+document
+    .querySelectorAll(".member-card")
+    .forEach((card, index) => {
 
-    card.addEventListener("click", () => {
+        card.addEventListener(
+            "click",
+            () => {
 
-        openMember(index);
+                openMember(index);
+
+            }
+        );
 
     });
 
-});
 
 // ======================================================
-// Back button
+// Back Button
 // ======================================================
 
-backButton.addEventListener("click", () => {
+backButton.addEventListener(
+    "click",
+    () => {
 
-    detailPanel.classList.remove("active");
+        detailPanel.classList.remove(
+            "active"
+        );
 
-    hero.style.display = "block";
-    membersGrid.style.display = "grid";
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+        hero.style.display =
+            "block";
 
-});
+        membersGrid.style.display =
+            "grid";
 
-// ======================================================
-// Next member
-// ======================================================
 
-nextButton.addEventListener("click", () => {
+        window.scrollTo({
 
-    if (currentIndex < memberKeys.length - 1) {
+            top: 0,
 
-        openMember(currentIndex + 1);
+            behavior: "smooth"
 
-    } else {
-
-        window.location.href = "goodbye.html";
+        });
 
     }
+);
 
-});
 
 // ======================================================
-// Previous member
+// Next Member
 // ======================================================
 
-previousButton.addEventListener("click", () => {
+nextButton.addEventListener(
+    "click",
+    () => {
 
-    if (currentIndex > 0) {
+        if (
+            currentIndex <
+            memberKeys.length - 1
+        ) {
 
-        openMember(currentIndex - 1);
+            openMember(
+                currentIndex + 1
+            );
+
+        } else {
+
+            // After MKT member page
+            // continue to final goodbye page
+            window.location.href =
+                "goodbye.html";
+
+        }
 
     }
+);
 
-});
 
 // ======================================================
-// Background music
+// Previous Member
 // ======================================================
-const backgroundMusic = document.getElementById("members-bg-music");
-const musicToggle = document.getElementById("music-toggle");
+
+previousButton.addEventListener(
+    "click",
+    () => {
+
+        if (currentIndex > 0) {
+
+            openMember(
+                currentIndex - 1
+            );
+
+        }
+
+    }
+);
+
+
+// ======================================================
+// Background Music
+// ======================================================
+
+const backgroundMusic =
+    document.getElementById(
+        "members-bg-music"
+    );
+
+const musicToggle =
+    document.getElementById(
+        "music-toggle"
+    );
+
 
 backgroundMusic.volume = 0.35;
 
+
+// ======================================================
+// Update Music Button
+// ======================================================
+
 function updateMusicButton() {
+
     if (backgroundMusic.paused) {
-        musicToggle.textContent = "♫ Play Music";
-        musicToggle.setAttribute("aria-label", "Play background music");
-        musicToggle.classList.remove("playing");
+
+        musicToggle.textContent =
+            "♫ Play Music";
+
+        musicToggle.setAttribute(
+            "aria-label",
+            "Play background music"
+        );
+
+        musicToggle.classList.remove(
+            "playing"
+        );
+
     } else {
-        musicToggle.textContent = "❚❚ Pause Music";
-        musicToggle.setAttribute("aria-label", "Pause background music");
-        musicToggle.classList.add("playing");
+
+        musicToggle.textContent =
+            "❚❚ Pause Music";
+
+        musicToggle.setAttribute(
+            "aria-label",
+            "Pause background music"
+        );
+
+        musicToggle.classList.add(
+            "playing"
+        );
+
     }
+
 }
+
+
+// ======================================================
+// Start Music
+// ======================================================
 
 async function startMusic() {
+
     try {
+
         await backgroundMusic.play();
+
         updateMusicButton();
+
     } catch (error) {
-        console.log("Autoplay with sound was blocked. Waiting for user interaction.");
+
+        console.log(
+            "Autoplay with sound was blocked. Waiting for user interaction."
+        );
+
     }
+
 }
 
-window.addEventListener("load", startMusic);
 
+// Try autoplay
+window.addEventListener(
+    "load",
+    startMusic
+);
+
+
+// If autoplay is blocked,
+// start after first mouse/touch interaction
 document.addEventListener(
+
     "pointerdown",
+
     async () => {
+
         if (backgroundMusic.paused) {
+
             await startMusic();
+
         }
+
     },
-    { once: true }
-);
 
-document.addEventListener(
-    "keydown",
-    async () => {
-        if (backgroundMusic.paused) {
-            await startMusic();
-        }
-    },
-    { once: true }
-);
-
-musicToggle.addEventListener("click", async (event) => {
-    event.stopPropagation();
-
-    if (backgroundMusic.paused) {
-        await startMusic();
-    } else {
-        backgroundMusic.pause();
-        updateMusicButton();
+    {
+        once: true
     }
-});
+
+);
+
+
+// Also support keyboard interaction
+document.addEventListener(
+
+    "keydown",
+
+    async () => {
+
+        if (backgroundMusic.paused) {
+
+            await startMusic();
+
+        }
+
+    },
+
+    {
+        once: true
+    }
+
+);
+
+
+// ======================================================
+// Music Toggle Button
+// ======================================================
+
+musicToggle.addEventListener(
+
+    "click",
+
+    async (event) => {
+
+        event.stopPropagation();
+
+
+        if (backgroundMusic.paused) {
+
+            await startMusic();
+
+        } else {
+
+            backgroundMusic.pause();
+
+            updateMusicButton();
+
+        }
+
+    }
+
+);
